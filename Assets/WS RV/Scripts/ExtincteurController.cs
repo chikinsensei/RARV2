@@ -10,9 +10,6 @@ public class ExtincteurController : MonoBehaviour
 	private InputActionReference trigger;
 
 	[SerializeField]
-	private XRGrabInteractable handle;
-
-	[SerializeField]
     private ParticleSystem extinguishedParticle;
 
 	[SerializeField] private float amountExtinguishedPerSecond = 5f;
@@ -26,7 +23,7 @@ public class ExtincteurController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (trigger.action.IsPressed() && handle.isSelected)
+		if (trigger.action.IsPressed() && transform.GetComponent<XRGrabInteractable>().isSelected)
 		{
 			extinguishedParticle.Play();
 			if (Physics.Raycast(extinguishedParticle.transform.position, extinguishedParticle.transform.forward, out RaycastHit hit, 100f)
