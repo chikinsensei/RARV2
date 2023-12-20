@@ -12,7 +12,6 @@ public class FireManager : MonoBehaviour
 	[SerializeField] private ParticleSystem explosionParticles;
 	[SerializeField] private ParticleSystem fireParticles;
 	[SerializeField] private Rigidbody headRigidbody;
-	[SerializeField] private float amountExtinguishedPerSecond = 1f;
 	public GameObject robot;
 
 	bool isOnFire = false;
@@ -50,7 +49,13 @@ public class FireManager : MonoBehaviour
 	{
 		currentIntensity -= amount;
 		ChangeIntensity();
-		return currentIntensity <= 0; //fire out
+
+		if(currentIntensity <= 0)
+		{
+			isOnFire = false;
+			return true;
+		}
+		return false; //fire out
 	}
 
 	private void ChangeIntensity()

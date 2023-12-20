@@ -11,10 +11,7 @@ public class ExtincteurController : MonoBehaviour
     [SerializeField]
     private ParticleSystem extinguishedParticle;
 
-	[SerializeField]
-	private FireManager fire;
-
-	[SerializeField] private float amountExtinguishedPerSecond = 1f;
+	[SerializeField] private float amountExtinguishedPerSecond = 5f;
 
 	// Start is called before the first frame update
 	void Start()
@@ -31,7 +28,6 @@ public class ExtincteurController : MonoBehaviour
 			if (Physics.Raycast(extinguishedParticle.transform.position, extinguishedParticle.transform.forward, out RaycastHit hit, 100f)
 			&& hit.collider.TryGetComponent(out FireManager fire))
 			{
-				Debug.Log(hit.collider.name);
 				fire.TryExtinguish(amountExtinguishedPerSecond * Time.deltaTime);
 			}
 		}
