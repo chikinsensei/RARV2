@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ExtincteurController : MonoBehaviour
 {
 	[SerializeField]
 	private InputActionReference trigger;
 
-    [SerializeField]
+	[SerializeField]
+	private XRGrabInteractable handle;
+
+	[SerializeField]
     private ParticleSystem extinguishedParticle;
 
 	[SerializeField] private float amountExtinguishedPerSecond = 5f;
@@ -22,7 +26,7 @@ public class ExtincteurController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (trigger.action.IsPressed())
+		if (trigger.action.IsPressed() && handle.isSelected)
 		{
 			extinguishedParticle.Play();
 			if (Physics.Raycast(extinguishedParticle.transform.position, extinguishedParticle.transform.forward, out RaycastHit hit, 100f)

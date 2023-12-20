@@ -15,7 +15,7 @@ public class FireManager : MonoBehaviour
 	public GameObject robot;
 
 	bool isOnFire = false;
-
+	bool exploded = false;
 	private void Start()
 	{
 		startIntensity = fireParticles.emission.rateOverTime.constant;
@@ -27,10 +27,11 @@ public class FireManager : MonoBehaviour
 	{
 		ChangeIntensity();
 		// Déclencheur d'incendie
-		if (Keyboard.current.fKey.wasPressedThisFrame && !isOnFire)
+		if (Keyboard.current.fKey.wasPressedThisFrame && !exploded)
 		{
 			StartFire();
 			isOnFire = true;
+			exploded = true;
 		}
 	}
 

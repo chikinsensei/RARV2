@@ -5,28 +5,33 @@ using UnityEngine;
 public class GrenadeControlleur : MonoBehaviour
 {
 	[SerializeField]
+	private GameObject grenade;
+
+	[SerializeField]
 	private ParticleSystem extinguishedParticle;
 
 	[SerializeField] private float amountExtinguishedPerSecond = 10f;
+
+	private bool grenadeUsed = false;
 	// Start is called before the first frame update
 	void Start()
     {
-        
-    }
+		extinguishedParticle.Stop();
+	}
 
     // Update is called once per frame
     void Update()
     {
         
     }
-
-	private void OnCollisionEnter(Collision collision)
+	private void OnTriggerEnter(Collider other)
 	{
-		if(collision.collider.TryGetComponent(out FireManager fire))
+		if (other.TryGetComponent(out FireManager fire) && !grenadeUsed)
 		{
 			extinguishedParticle.Play();
-			fire.TryExtinguish(amountExtinguishedPerSecond * Time.deltaTime);
-			GameObject.Destroy(GameObject.Find("GrenadeIncendie"));
+			fire.TryExtinguish(amountExtinguishedPerSecond);
+			grenadeUsed = true;
+			//GameObject.Destroy(grenade);
 		}
 	}
 }
