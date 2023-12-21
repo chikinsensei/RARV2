@@ -14,10 +14,12 @@ public class FireManager : MonoBehaviour
 	[SerializeField] private Rigidbody headRigidbody;
 	[SerializeField] private float amountExtinguishedPerSecond = 1f;
 	public GameObject robot;
-
 	bool isOnFire = false;
 
-	private void Start()
+    public GameObject socket;
+    bool isSocketed = false;
+
+    private void Start()
 	{
 		startIntensity = fireParticles.emission.rateOverTime.constant;
 		explosionParticles.Stop();
@@ -44,7 +46,18 @@ public class FireManager : MonoBehaviour
 		explosionParticles.Play();
 		fireParticles.Play();
 		robot.GetComponent<NavMeshAgent>().speed = 0;
+
+		// Activer le socket après l'explosion
+		StartCoroutine(ActivateSocket());
+		isSocketed = true;
 	}
+
+	IEnumerator ActivateSocket()
+	{
+		// Attendre 2 secondes pour éviter que le socket ne soit pendant l'explosion et que le collider soit trigger
+        yield return new WaitForSeconds(2);
+        socket.SetActive(isSocketed);
+    }
 
 	public bool TryExtinguish(float amount)
 	{
