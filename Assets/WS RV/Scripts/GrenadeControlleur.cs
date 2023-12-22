@@ -28,10 +28,11 @@ public class GrenadeControlleur : MonoBehaviour
 	{
 		if (other.TryGetComponent(out FireManager fire) && !grenadeUsed)
 		{
-			extinguishedParticle.Play();
+			Instantiate(extinguishedParticle, transform.position, Quaternion.identity);
+			//extinguishedParticle.Play();
 			fire.TryExtinguish(amountExtinguishedPerSecond);
 			grenadeUsed = true;
-			//GameObject.Destroy(grenade);
+			GameObject.Destroy(grenade);
 		}
 	}
 }

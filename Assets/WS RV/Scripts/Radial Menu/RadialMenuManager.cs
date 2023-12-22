@@ -45,8 +45,10 @@ public class RadialMenuManager : MonoBehaviour
 
     private void Select(InputAction.CallbackContext obj)
     {
-        radialMenu.ActivateHighlightedSection();
-    }
+
+		radialMenu.ActivateHighlightedSection();
+
+	}
 
     private void TouchPosition(InputAction.CallbackContext obj)
     {
