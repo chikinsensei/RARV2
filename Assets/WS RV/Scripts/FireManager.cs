@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class FireManager : MonoBehaviour
 {
@@ -12,10 +13,12 @@ public class FireManager : MonoBehaviour
 	[SerializeField] private ParticleSystem explosionParticles;
 	[SerializeField] private ParticleSystem fireParticles;
 	[SerializeField] private Rigidbody headRigidbody;
+	[SerializeField] private XRGrabInteractable headGrab;
+
 	public GameObject robot;
-	bool isOnFire = false;
+	public bool isOnFire = false;
 	bool exploded = false;
-	private void Start()
+
 
     public GameObject socket;
     bool isSocketed = false;
@@ -25,6 +28,7 @@ public class FireManager : MonoBehaviour
 		startIntensity = fireParticles.emission.rateOverTime.constant;
 		explosionParticles.Stop();
 		fireParticles.Stop();
+		headGrab.enabled = false;
 	}
 
 	private void Update()
@@ -41,6 +45,7 @@ public class FireManager : MonoBehaviour
 
 	private void StartFire()
 	{
+		socket.SetActive(isSocketed);
 		// Faire sauter la t�te du robot
 		headRigidbody.AddForce(Vector3.up * 5f + Vector3.forward * 1f, ForceMode.Impulse);
 
@@ -64,15 +69,18 @@ public class FireManager : MonoBehaviour
 	public bool TryExtinguish(float amount)
 	{
 		currentIntensity -= amount;
+		Debug.Log(currentIntensity);
 		ChangeIntensity();
 
 		if(currentIntensity <= 0)
 		{
 			isOnFire = false;
+			headGrab.enabled = true;
 			return true;
 		}
 		return false; //fire out
 	}
+
 
 	private void ChangeIntensity()
 	{
