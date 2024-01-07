@@ -1,0 +1,10 @@
+{
+  "name": "com.fallchicken.packageuser",
+  "version": "1.0.0",
+  "displayName": "Package User",
+  "description": "Package contenant un avatar",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.unity.xr.interaction.toolkit": "2.3.2"
+  }
+}
