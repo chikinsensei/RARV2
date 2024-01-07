@@ -16,5 +16,7 @@ F9 : Projet git avec un Tag et rendre un build TESTE et TESTE et RETESTE ! Tous<
 
 
 <br>
+
 ## Tâches restantes
+
 F10 : Créer un package réutilisable d’avatar RV qui peut se déplacer et attraper afin d’être réutilisé. Hadrien <br>
